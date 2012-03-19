@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>TerminalCommand</groupId>
+    <artifactId>TerminalCommand</artifactId>
+    <version>1.0</version>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.alta189</groupId>
+            <artifactId>cyborg</artifactId>
+            <version>2.0.0</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>0.10.8</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mainClass>com.alta189.tcommand.Main</mainClass>
+        <build.number>0</build.number>
+    </properties>
+
+    <build>
+        <defaultGoal>clean</defaultGoal>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+
+        <!-- Plugins -->
+        <plugins>
+            <!-- Compile plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <!-- JAR creation plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>=
+        </plugins>
+    </build>
+
+</project>
