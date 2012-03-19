@@ -19,21 +19,35 @@
 
 package com.alta189.tcommand;
 
-import com.alta189.tcommand.cmd.CommandManager;
-import com.alta189.tcommand.test.TestCommandExectutor;
-import lombok.Getter;
+import jline.Terminal;
+import jline.console.ConsoleReader;
 
-public class Main {
+public class TerminalThread extends Thread {
 
-	@Getter
-	private static CommandManager commandManager = new CommonCommandManager();
-
-	public static void main(String[] args) {
-		TestCommandExectutor testCommandExectutor = new TestCommandExectutor();
-		commandManager.registerCommand(testCommandExectutor.getTestCommand());
-		new TerminalThread().start();
+	ConsoleReader reader;
+	TerminalUser user;
+	@Override
+	public void start() {
+		try {
+			reader = new ConsoleReader();
+			user = new TerminalUser();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		super.start();
 	}
-	
 
-
+	@Override
+	public void run() {
+		try {
+			String line = reader.readLine();
+			while (!isInterrupted() && ((line = reader.readLine()) != null)) {
+				if (!line.isEmpty()) {
+					Main.getCommandManager().execute(user, line);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

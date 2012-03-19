@@ -19,21 +19,15 @@
 
 package com.alta189.tcommand;
 
-import com.alta189.tcommand.cmd.CommandManager;
-import com.alta189.tcommand.test.TestCommandExectutor;
-import lombok.Getter;
+import com.alta189.tcommand.cmd.CommandSource;
+import java.io.PrintWriter;
 
-public class Main {
+public class TerminalUser implements CommandSource {
 
-	@Getter
-	private static CommandManager commandManager = new CommonCommandManager();
-
-	public static void main(String[] args) {
-		TestCommandExectutor testCommandExectutor = new TestCommandExectutor();
-		commandManager.registerCommand(testCommandExectutor.getTestCommand());
-		new TerminalThread().start();
-	}
+	private PrintWriter out = new PrintWriter(System.out);
 	
-
-
+	@Override
+	public void sendMessage(String message) {
+		out.println(message);
+	}
 }

@@ -20,21 +20,45 @@
 package com.alta189.tcommand;
 
 import com.alta189.tcommand.cmd.Command;
+import com.alta189.tcommand.cmd.CommandContex;
+import com.alta189.tcommand.cmd.CommandException;
 import com.alta189.tcommand.cmd.CommandExecutor;
 import com.alta189.tcommand.cmd.CommandManager;
 import com.alta189.tcommand.cmd.CommandSource;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CommonCommandManager extends CommandManager {
 
+	private final List<String> prefixes = Arrays.asList(",", ".", "!", "~", "?", ">", ",", ":", "@", "$", "%", "^", "&", "*", "-", "_", "=", "+", "`");
+	
 	@Override
-	public void execute(CommandSource source, Command command, String[] args) {
+	public void execute(CommandSource source, Command command, CommandContex contex) throws CommandException {
 		CommandExecutor executor = command.getExecutor();
-		execute(source, command, args);
+		if (executor != null)
+			executor.processCommand(source, command, contex);
 	}
 
 	@Override
-	public void execute(String raw) {
-		//To change body of implemented methods use File | Settings | File Templates.
+	public void execute(CommandSource source, String raw) throws CommandException {
+		String prefix = getPrefix(raw);
+		if (prefix != null)
+			raw = raw.substring(1);
+		Command command = getCommandMap().getCommand(getCommand(raw));
+		if (command != null) {
+			String[] args = getArgs(raw);
+			
+			CommandContex contex = new CommandContex(args, prefix);
+			execute(source, command, contex);
+		}
+	}
+	
+	private String getPrefix(String raw) {
+		String p = raw.substring(0, 1);
+		if (prefixes.contains(p))
+			return p;
+		return null;
 	}
 
 	@Override
@@ -42,5 +66,20 @@ public class CommonCommandManager extends CommandManager {
 		getCommandMap().addCommand(command);
 	}
 
+	private static String[] getArgs(String raw) {
+		if (!raw.contains(" "))
+			return null;
 
+		int firstSpace = raw.indexOf(" ");
+		if (firstSpace + 1 > raw.length())
+			return null;
+		return raw.substring(firstSpace + 1).split(" ");
+	}
+	
+	private String getCommand(String raw) {
+		if (raw.contains(" ")) {
+			return raw.substring(0, raw.indexOf(" "));
+		}
+		return raw;
+	}
 }

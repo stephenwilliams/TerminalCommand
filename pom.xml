@@ -8,28 +8,26 @@
     <artifactId>TerminalCommand</artifactId>
     <version>1.0</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mainClass>com.alta189.tcommand.Main</mainClass>
+        <build.number>0</build.number>
+    </properties>
+
 
     <dependencies>
-        <dependency>
-            <groupId>com.alta189</groupId>
-            <artifactId>cyborg</artifactId>
-            <version>2.0.0</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>0.10.8</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>jline</groupId>
+            <artifactId>jline</artifactId>
+            <version>2.6</version>
+        </dependency>
     </dependencies>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>com.alta189.tcommand.Main</mainClass>
-        <build.number>0</build.number>
-    </properties>
 
     <build>
         <defaultGoal>clean</defaultGoal>
@@ -59,7 +57,28 @@
                         </manifest>
                     </archive>
                 </configuration>
-            </plugin>=
+            </plugin>
+            <!-- JAR dependency addition plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>junit:*</exclude>
+                                </excludes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

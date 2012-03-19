@@ -28,9 +28,9 @@ public abstract class CommandManager {
 	@Getter
 	private final CommandMap commandMap = new CommandMap();
 	
-	public abstract void execute(String raw);
+	public abstract void execute(CommandSource source, String raw) throws CommandException;
 	
-	public abstract void execute(CommandSource source, Command command, String[] args);
+	public abstract void execute(CommandSource source, Command command, CommandContex contex) throws CommandException;
 	
 	public abstract void registerCommand(Command command);
 	

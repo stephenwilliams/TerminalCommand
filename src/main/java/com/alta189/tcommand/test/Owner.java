@@ -17,23 +17,17 @@
  * along with this.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.alta189.tcommand;
+package com.alta189.tcommand.test;
 
-import com.alta189.tcommand.cmd.CommandManager;
-import com.alta189.tcommand.test.TestCommandExectutor;
+import com.alta189.tcommand.Named;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-public class Main {
-
-	@Getter
-	private static CommandManager commandManager = new CommonCommandManager();
-
-	public static void main(String[] args) {
-		TestCommandExectutor testCommandExectutor = new TestCommandExectutor();
-		commandManager.registerCommand(testCommandExectutor.getTestCommand());
-		new TerminalThread().start();
-	}
+@RequiredArgsConstructor
+public class Owner implements Named {
 	
-
-
+	@Getter
+	private final String name;
+	
+	
 }

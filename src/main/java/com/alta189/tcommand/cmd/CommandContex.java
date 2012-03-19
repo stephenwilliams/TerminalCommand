@@ -19,8 +19,14 @@
 
 package com.alta189.tcommand.cmd;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
 public class CommandContex {
-	
+
+	@Getter
 	private String[] args;
+	@Getter
 	private String prefix;
 }
