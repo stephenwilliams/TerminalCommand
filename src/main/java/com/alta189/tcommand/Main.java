@@ -31,6 +31,7 @@ public class Main {
 	public static void main(String[] args) {
 		TestCommandExectutor testCommandExectutor = new TestCommandExectutor();
 		commandManager.registerCommand(testCommandExectutor.getTestCommand());
+		commandManager.registerCommand(testCommandExectutor.getSecondCommand());
 		new TerminalThread().start();
 	}
 	
