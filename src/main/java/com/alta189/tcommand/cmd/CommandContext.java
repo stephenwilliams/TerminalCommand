@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public class CommandContex {
+public class CommandContext {
 
 	@Getter
 	private String[] args;

@@ -21,6 +21,6 @@ package com.alta189.tcommand.cmd;
 
 public interface CommandExecutor {
 
-	public boolean processCommand(CommandSource source, Command command, CommandContex contex) throws CommandException;
+	public boolean processCommand(CommandSource source, Command command, CommandContext context) throws CommandException;
 	
 }

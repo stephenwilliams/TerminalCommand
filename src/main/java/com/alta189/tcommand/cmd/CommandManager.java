@@ -19,8 +19,6 @@
 
 package com.alta189.tcommand.cmd;
 
-import java.util.HashMap;
-import java.util.Map;
 import lombok.Getter;
 
 public abstract class CommandManager {
@@ -30,7 +28,7 @@ public abstract class CommandManager {
 	
 	public abstract void execute(CommandSource source, String raw) throws CommandException;
 	
-	public abstract void execute(CommandSource source, Command command, CommandContex contex) throws CommandException;
+	public abstract void execute(CommandSource source, Command command, CommandContext context) throws CommandException;
 	
 	public abstract void registerCommand(Command command);
 	
