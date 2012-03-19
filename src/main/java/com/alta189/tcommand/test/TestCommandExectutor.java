@@ -19,9 +19,8 @@
 
 package com.alta189.tcommand.test;
 
-import com.alta189.tcommand.Named;
 import com.alta189.tcommand.cmd.Command;
-import com.alta189.tcommand.cmd.CommandContex;
+import com.alta189.tcommand.cmd.CommandContext;
 import com.alta189.tcommand.cmd.CommandException;
 import com.alta189.tcommand.cmd.CommandExecutor;
 import com.alta189.tcommand.cmd.CommandSource;
@@ -31,15 +30,22 @@ public class TestCommandExectutor implements CommandExecutor {
 
 	@Getter
 	private Command testCommand;
+	@Getter
+	private Command secondCommand;
 	
 	public TestCommandExectutor() {
 		testCommand = new Command(new Owner(TestCommandExectutor.class.getCanonicalName()), "test");
 		testCommand.setDesc("A lovely description!");
 		testCommand.setExecutor(this);
+		testCommand.getAliases().add("t");
+		testCommand.getAliases().add("tt");
+		secondCommand = new Command(new Owner(TestCommandExectutor.class.getCanonicalName()), "tt");
+	    secondCommand.setDesc("A wonderful work!");
+		secondCommand.setExecutor(this);
 	}
 
 	@Override
-	public boolean processCommand(CommandSource source, Command command, CommandContex contex) throws CommandException {
+	public boolean processCommand(CommandSource source, Command command, CommandContext context) throws CommandException {
 		System.out.println("Recieved command!");
 		System.out.println("Command: " + command.getCommand());
 		System.out.println("Description: " + command.getDesc());
@@ -56,10 +62,10 @@ public class TestCommandExectutor implements CommandExecutor {
 		}
 		System.out.println("Aliases: " + builder.toString());
 
-		if (contex.getArgs() != null) {
+		if (context.getArgs() != null) {
 			StringBuilder args = new StringBuilder();
 			first = true;
-			for (String arg : contex.getArgs()) {
+			for (String arg : context.getArgs()) {
 				if (first) {
 					first = false;
 				} else {

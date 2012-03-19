@@ -20,12 +20,11 @@
 package com.alta189.tcommand;
 
 import com.alta189.tcommand.cmd.Command;
-import com.alta189.tcommand.cmd.CommandContex;
+import com.alta189.tcommand.cmd.CommandContext;
 import com.alta189.tcommand.cmd.CommandException;
 import com.alta189.tcommand.cmd.CommandExecutor;
 import com.alta189.tcommand.cmd.CommandManager;
 import com.alta189.tcommand.cmd.CommandSource;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,10 +33,10 @@ public class CommonCommandManager extends CommandManager {
 	private final List<String> prefixes = Arrays.asList(",", ".", "!", "~", "?", ">", ",", ":", "@", "$", "%", "^", "&", "*", "-", "_", "=", "+", "`");
 	
 	@Override
-	public void execute(CommandSource source, Command command, CommandContex contex) throws CommandException {
+	public void execute(CommandSource source, Command command, CommandContext context) throws CommandException {
 		CommandExecutor executor = command.getExecutor();
 		if (executor != null)
-			executor.processCommand(source, command, contex);
+			executor.processCommand(source, command, context);
 	}
 
 	@Override
@@ -49,8 +48,8 @@ public class CommonCommandManager extends CommandManager {
 		if (command != null) {
 			String[] args = getArgs(raw);
 			
-			CommandContex contex = new CommandContex(args, prefix);
-			execute(source, command, contex);
+			CommandContext context = new CommandContext(args, prefix);
+			execute(source, command, context);
 		}
 	}
 	
