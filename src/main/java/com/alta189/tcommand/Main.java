@@ -20,6 +20,10 @@
 package com.alta189.tcommand;
 
 import com.alta189.tcommand.cmd.CommandManager;
+import com.alta189.tcommand.cmd.annotation.EmptyConstructorInjector;
+import com.alta189.tcommand.cmd.annotation.SimpleInjector;
+import com.alta189.tcommand.test.AnnotatedCommandsTest;
+import com.alta189.tcommand.test.Owner;
 import com.alta189.tcommand.test.TestCommandExectutor;
 import lombok.Getter;
 
@@ -32,6 +36,7 @@ public class Main {
 		TestCommandExectutor testCommandExectutor = new TestCommandExectutor();
 		commandManager.registerCommand(testCommandExectutor.getTestCommand());
 		commandManager.registerCommand(testCommandExectutor.getSecondCommand());
+		commandManager.registerCommands(new Owner(AnnotatedCommandsTest.class.getCanonicalName()),AnnotatedCommandsTest.class, new EmptyConstructorInjector());
 		new TerminalThread().start();
 	}
 	

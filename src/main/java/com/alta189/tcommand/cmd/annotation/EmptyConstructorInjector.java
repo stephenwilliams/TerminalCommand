@@ -17,10 +17,20 @@
  * along with this.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.alta189.tcommand.cmd;
+package com.alta189.tcommand.cmd.annotation;
 
-public interface CommandExecutor {
+import java.lang.reflect.Constructor;
 
-	public void processCommand(CommandSource source, Command command, CommandContext context) throws CommandException;
-	
+public class EmptyConstructorInjector implements Injector {
+
+	@Override
+	public Object newInstance(Class<?> clazz) {
+		try {
+			return clazz.newInstance();
+		} catch (InstantiationException e) {
+			return null;
+		} catch (IllegalAccessException e) {
+			return null;
+		}
+	}
 }

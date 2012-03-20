@@ -17,10 +17,21 @@
  * along with this.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.alta189.tcommand.cmd;
+package com.alta189.tcommand.test;
 
-public interface CommandExecutor {
+import com.alta189.tcommand.cmd.annotation.Command;
+import com.alta189.tcommand.cmd.CommandContext;
+import com.alta189.tcommand.cmd.CommandSource;
 
-	public void processCommand(CommandSource source, Command command, CommandContext context) throws CommandException;
+public class AnnotatedCommandsTest {
 	
+	@Command(name = "derp", desc = "hia!")
+	public void derp(CommandSource source, CommandContext context) {
+		System.out.println("herp");
+	}
+
+	@Command(name = "ping", desc = "desccccc", aliases = {"google", "g"})
+	public void pong(CommandSource source, CommandContext context) {
+		System.out.print("pong");
+	}
 }

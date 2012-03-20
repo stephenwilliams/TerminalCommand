@@ -40,7 +40,7 @@ public class TerminalThread extends Thread {
 	@Override
 	public void run() {
 		try {
-			String line = reader.readLine();
+			String line;
 			while (!isInterrupted() && ((line = reader.readLine()) != null)) {
 				if (!line.isEmpty()) {
 					Main.getCommandManager().execute(user, line);

@@ -45,7 +45,7 @@ public class TestCommandExectutor implements CommandExecutor {
 	}
 
 	@Override
-	public boolean processCommand(CommandSource source, Command command, CommandContext context) throws CommandException {
+	public void processCommand(CommandSource source, Command command, CommandContext context) throws CommandException {
 		System.out.println("Recieved command!");
 		System.out.println("Command: " + command.getCommand());
 		System.out.println("Description: " + command.getDesc());
@@ -75,8 +75,6 @@ public class TestCommandExectutor implements CommandExecutor {
 			}
 
 			System.out.println("Args: " + args.toString());
-		}
-		
-		return false;
+		};
 	}
 }

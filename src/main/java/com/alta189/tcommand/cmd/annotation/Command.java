@@ -20,8 +20,14 @@
 package com.alta189.tcommand.cmd.annotation;
 
 import com.alta189.tcommand.Named;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.Arrays;
 
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Command {
 	
 	String name();
