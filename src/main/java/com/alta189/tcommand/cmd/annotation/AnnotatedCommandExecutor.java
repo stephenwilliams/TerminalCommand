@@ -1,0 +1,62 @@
+/*
+ * Copyright (C) 2012 CyborgDev <cyborg@alta189.com>
+ *
+ * This file is part of TerminalCommand
+ *
+ * TerminalCommand is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * TerminalCommand is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package com.alta189.tcommand.cmd.annotation;
+
+import com.alta189.tcommand.cmd.CommandContext;
+import com.alta189.tcommand.cmd.CommandException;
+import com.alta189.tcommand.cmd.CommandExecutor;
+import com.alta189.tcommand.cmd.CommandSource;
+import com.alta189.tcommand.cmd.WrappedCommandException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public class AnnotatedCommandExecutor implements CommandExecutor {
+
+	private final Object instance;
+	private final Method method;
+
+	public boolean processCommand(CommandSource source, com.alta189.tcommand.cmd.Command command, CommandContext args) throws CommandException {
+		try {
+			List<Object> commandArgs = new ArrayList<Object>(4);
+			commandArgs.add(args);
+			commandArgs.add(source);
+			method.invoke(instance, commandArgs.toArray());
+		} catch (IllegalAccessException e) {
+			throw new WrappedCommandException(e);
+		} catch (InvocationTargetException e) {
+			if (e.getCause() == null) {
+				throw new WrappedCommandException(e);
+			} else {
+				Throwable cause = e.getCause();
+				if (cause instanceof CommandException) {
+					throw (CommandException) cause;
+				} else {
+					throw new WrappedCommandException(cause);
+				}
+			}
+		}
+		return true;
+	}
+
+}

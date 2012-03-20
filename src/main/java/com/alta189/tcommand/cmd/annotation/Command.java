@@ -17,23 +17,17 @@
  * along with this.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.alta189.tcommand.cmd;
+package com.alta189.tcommand.cmd.annotation;
 
 import com.alta189.tcommand.Named;
-import com.alta189.tcommand.cmd.annotation.Injector;
-import lombok.Getter;
+import java.util.Arrays;
 
-public abstract class CommandManager {
+public @interface Command {
+	
+	String name();
+	
+	String desc();
+	
+	String[] aliases() default {};
 
-	@Getter
-	private final CommandMap commandMap = new CommandMap();
-	
-	public abstract void execute(CommandSource source, String raw) throws CommandException;
-	
-	public abstract void execute(CommandSource source, Command command, CommandContext context) throws CommandException;
-	
-	public abstract void registerCommand(Command command);
-	
-	public abstract void registerCommands(Named owner, Class<?> clazz, Injector injector);
-	
 }

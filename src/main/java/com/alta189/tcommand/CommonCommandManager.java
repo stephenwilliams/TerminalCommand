@@ -25,6 +25,8 @@ import com.alta189.tcommand.cmd.CommandException;
 import com.alta189.tcommand.cmd.CommandExecutor;
 import com.alta189.tcommand.cmd.CommandManager;
 import com.alta189.tcommand.cmd.CommandSource;
+import com.alta189.tcommand.cmd.annotation.AnnotatedCommandFactory;
+import com.alta189.tcommand.cmd.annotation.Injector;
 import java.util.Arrays;
 import java.util.List;
 
@@ -63,6 +65,17 @@ public class CommonCommandManager extends CommandManager {
 	@Override
 	public void registerCommand(Command command) {
 		getCommandMap().addCommand(command);
+	}
+
+	@Override
+	public void registerCommands(Named owner, Class<?> clazz, Injector injector) {
+		AnnotatedCommandFactory factory = new AnnotatedCommandFactory(injector);
+		List<Command> commands = factory.createCommands(owner, clazz);
+		if (commands != null && commands.size() > 0) {
+			for (Command command : commands) {
+				registerCommand(command);
+			}
+		}
 	}
 
 	private static String[] getArgs(String raw) {
