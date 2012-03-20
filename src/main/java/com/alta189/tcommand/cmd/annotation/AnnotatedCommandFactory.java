@@ -39,7 +39,7 @@ public class AnnotatedCommandFactory {
 			instance = injector.newInstance(clazz);
 		}
 
-		for (Method method : clazz.getMethods()) {;
+		for (Method method : clazz.getMethods()) {
 			if (!Modifier.isStatic(method.getModifiers()) && instance == null) {
 				continue;
 			}
